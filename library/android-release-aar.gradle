@@ -22,24 +22,6 @@ task androidSourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
 }
 
-uploadArchives {
-    repositories.mavenDeployer {
-        pom.groupId = groupId
-        pom.artifactId = artifactId
-        pom.version = version
-        // Add other pom properties here if you want (developer details / licenses)
-        repository(url: "file://${localReleaseDest}")
-        // workaround for: https://code.google.com/p/android/issues/detail?id=72807
-        pom.whenConfigured { pom ->
-            pom.dependencies.findAll { dependency ->
-                if (dependency.artifactId == 'appcompat-v7') {
-                    dependency.type = 'aar'
-                }
-            }
-        }
-    }
-}
-
 task zipRelease(type: Zip) {
     from localReleaseDest
     destinationDir buildDir
@@ -50,9 +32,6 @@ task generateRelease << {
     println "Release ${version} can be found at ${localReleaseDest}/"
     println "Release ${version} zipped can be found ${buildDir}/release-${version}.zip"
 }
-
-generateRelease.dependsOn(uploadArchives)
-generateRelease.dependsOn(zipRelease)
 
 
 artifacts {
