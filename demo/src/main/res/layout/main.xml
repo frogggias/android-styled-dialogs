@@ -61,6 +61,11 @@
             android:text="Date picker dialog" />
 
         <Button
+            android:id="@+id/text_picker"
+            style="@style/Button"
+            android:text="Text dialog (password)" />
+
+        <Button
             android:id="@+id/custom_dialog"
             style="@style/Button"
             android:layout_marginBottom="@dimen/grid_3"
