@@ -16,6 +16,7 @@ public abstract class BaseDialogBuilder<T extends BaseDialogBuilder<T>> {
 
     public final static String ARG_REQUEST_CODE = "request_code";
     public final static String ARG_CANCELABLE_ON_TOUCH_OUTSIDE = "cancelable_oto";
+    public final static String ARG_DATA = "data";
     public final static String DEFAULT_TAG = "simple_dialog";
     private String mTag = DEFAULT_TAG;
     public final static int DEFAULT_REQUEST_CODE = -42;
@@ -30,6 +31,7 @@ public abstract class BaseDialogBuilder<T extends BaseDialogBuilder<T>> {
     private boolean mCancelableOnTouchOutside = true;
     private boolean mUseDarkTheme = false;
     private boolean mUseLightTheme = false;
+    private Bundle mData;
 
     public BaseDialogBuilder(Context context, FragmentManager fragmentManager, Class<? extends BaseDialogFragment> clazz) {
         mFragmentManager = fragmentManager;
@@ -77,6 +79,11 @@ public abstract class BaseDialogBuilder<T extends BaseDialogBuilder<T>> {
 
     public T useLightTheme() {
         mUseLightTheme = true;
+        return self();
+    }
+
+    public T setData(Bundle data) {
+        mData = data;
         return self();
     }
 

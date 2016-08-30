@@ -66,7 +66,7 @@ public class DatePickerDialogFragment extends BaseDialogFragment {
                 @Override
                 public void onClick(View view) {
                     for (IDateDialogListener listener : getDialogListeners()) {
-                        listener.onPositiveButtonClicked(mRequestCode, getDate());
+                        listener.onPositiveButtonClicked(mRequestCode, getDate(), getData());
                     }
                     dismiss();
                 }
@@ -80,7 +80,7 @@ public class DatePickerDialogFragment extends BaseDialogFragment {
                 @Override
                 public void onClick(View view) {
                     for (IDateDialogListener listener : getDialogListeners()) {
-                        listener.onNegativeButtonClicked(mRequestCode, getDate());
+                        listener.onNegativeButtonClicked(mRequestCode, getDate(), getData());
                     }
                     dismiss();
                 }

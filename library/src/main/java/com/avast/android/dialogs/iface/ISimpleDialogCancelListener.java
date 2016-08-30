@@ -16,6 +16,9 @@
 
 package com.avast.android.dialogs.iface;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+
 /**
  * Implement this interface in Activity or Fragment to react when the dialog is cancelled.
  * This listener is common for all types of dialogs.
@@ -24,5 +27,5 @@ package com.avast.android.dialogs.iface;
  */
 public interface ISimpleDialogCancelListener {
 
-    public void onCancelled(int requestCode);
+    public void onCancelled(int requestCode, @Nullable Bundle data);
 }

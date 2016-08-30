@@ -201,14 +201,14 @@ public class DemoActivity extends ActionBarActivity implements
     // IListDialogListener
 
     @Override
-    public void onListItemSelected(CharSequence value, int number, int requestCode) {
+    public void onListItemSelected(CharSequence value, int number, int requestCode, Bundle data) {
         if (requestCode == REQUEST_LIST_SIMPLE || requestCode == REQUEST_LIST_SINGLE) {
             Toast.makeText(c, "Selected: " + value, Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
-    public void onListItemsSelected(CharSequence[] values, int[] selectedPositions, int requestCode) {
+    public void onListItemsSelected(CharSequence[] values, int[] selectedPositions, int requestCode, Bundle data) {
         if (requestCode == REQUEST_LIST_MULTIPLE) {
             StringBuilder sb = new StringBuilder();
             for (CharSequence value : values) {
@@ -225,7 +225,7 @@ public class DemoActivity extends ActionBarActivity implements
     // ISimpleDialogCancelListener
 
     @Override
-    public void onCancelled(int requestCode) {
+    public void onCancelled(int requestCode, Bundle data) {
         switch (requestCode) {
             case REQUEST_SIMPLE_DIALOG:
                 Toast.makeText(c, "Dialog cancelled", Toast.LENGTH_SHORT).show();
@@ -250,21 +250,21 @@ public class DemoActivity extends ActionBarActivity implements
     // ISimpleDialogListener
 
     @Override
-    public void onPositiveButtonClicked(int requestCode) {
+    public void onPositiveButtonClicked(int requestCode, Bundle data) {
         if (requestCode == REQUEST_SIMPLE_DIALOG) {
             Toast.makeText(c, "Positive button clicked", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
-    public void onNegativeButtonClicked(int requestCode) {
+    public void onNegativeButtonClicked(int requestCode, Bundle data) {
         if (requestCode == REQUEST_SIMPLE_DIALOG) {
             Toast.makeText(c, "Negative button clicked", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
-    public void onNeutralButtonClicked(int requestCode) {
+    public void onNeutralButtonClicked(int requestCode, Bundle data) {
         if (requestCode == REQUEST_SIMPLE_DIALOG) {
             Toast.makeText(c, "Neutral button clicked", Toast.LENGTH_SHORT).show();
         }
@@ -273,7 +273,7 @@ public class DemoActivity extends ActionBarActivity implements
     // IDateDialogListener
 
     @Override
-    public void onNegativeButtonClicked(int resultCode, Date date) {
+    public void onNegativeButtonClicked(int resultCode, Date date, Bundle data) {
         String text = "";
         if (resultCode == REQUEST_DATE_PICKER) {
             text = "Date ";
@@ -286,7 +286,7 @@ public class DemoActivity extends ActionBarActivity implements
     }
 
     @Override
-    public void onPositiveButtonClicked(int resultCode, Date date) {
+    public void onPositiveButtonClicked(int resultCode, Date date, Bundle data) {
         String text = "";
         if (resultCode == REQUEST_DATE_PICKER) {
             text = "Date ";

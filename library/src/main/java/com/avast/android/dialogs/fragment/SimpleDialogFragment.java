@@ -81,7 +81,7 @@ public class SimpleDialogFragment extends BaseDialogFragment {
                 @Override
                 public void onClick(View view) {
                     for (IPositiveButtonDialogListener listener : getPositiveButtonDialogListeners()) {
-                        listener.onPositiveButtonClicked(mRequestCode);
+                        listener.onPositiveButtonClicked(mRequestCode, getData());
                     }
                     dismiss();
                 }
@@ -94,7 +94,7 @@ public class SimpleDialogFragment extends BaseDialogFragment {
                 @Override
                 public void onClick(View view) {
                     for (INegativeButtonDialogListener listener : getNegativeButtonDialogListeners()) {
-                        listener.onNegativeButtonClicked(mRequestCode);
+                        listener.onNegativeButtonClicked(mRequestCode, getData());
                     }
                     dismiss();
                 }
@@ -107,7 +107,7 @@ public class SimpleDialogFragment extends BaseDialogFragment {
                 @Override
                 public void onClick(View view) {
                     for (INeutralButtonDialogListener listener : getNeutralButtonDialogListeners()) {
-                        listener.onNeutralButtonClicked(mRequestCode);
+                        listener.onNeutralButtonClicked(mRequestCode, getData());
                     }
                     dismiss();
                 }
