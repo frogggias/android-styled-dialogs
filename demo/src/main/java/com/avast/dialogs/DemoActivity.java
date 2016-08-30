@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.InputType;
 import android.view.Menu;
 import android.content.res.TypedArray;
 import android.util.TypedValue;
@@ -33,11 +34,13 @@ import android.widget.AbsListView;
 import android.widget.Toast;
 
 import com.avast.android.dialogs.fragment.DatePickerDialogFragment;
+import com.avast.android.dialogs.fragment.TextDialogFragment;
 import com.avast.android.dialogs.fragment.ListDialogFragment;
 import com.avast.android.dialogs.fragment.ProgressDialogFragment;
 import com.avast.android.dialogs.fragment.SimpleDialogFragment;
 import com.avast.android.dialogs.fragment.TimePickerDialogFragment;
 import com.avast.android.dialogs.iface.IDateDialogListener;
+import com.avast.android.dialogs.iface.ITextPositiveButtonDialogListener;
 import com.avast.android.dialogs.iface.IListDialogListener;
 import com.avast.android.dialogs.iface.IMultiChoiceListDialogListener;
 import com.avast.android.dialogs.iface.ISimpleDialogCancelListener;
@@ -48,7 +51,8 @@ public class DemoActivity extends ActionBarActivity implements
         IDateDialogListener,
         ISimpleDialogCancelListener,
         IListDialogListener,
-        IMultiChoiceListDialogListener {
+        IMultiChoiceListDialogListener,
+        ITextPositiveButtonDialogListener {
 
     private static final int REQUEST_PROGRESS = 1;
     private static final int REQUEST_LIST_SIMPLE = 9;
@@ -56,6 +60,7 @@ public class DemoActivity extends ActionBarActivity implements
     private static final int REQUEST_LIST_SINGLE = 11;
     private static final int REQUEST_DATE_PICKER = 12;
     private static final int REQUEST_TIME_PICKER = 13;
+    private static final int REQUEST_TEXT_PICKER = 15;
     private static final int REQUEST_SIMPLE_DIALOG = 42;
 
     DemoActivity c = this;
@@ -196,6 +201,18 @@ public class DemoActivity extends ActionBarActivity implements
                         .show();
             }
         });
+        findViewById(R.id.text_picker).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TextDialogFragment
+                        .createBuilder(DemoActivity.this, getSupportFragmentManager())
+                        .setPositiveButtonText(android.R.string.ok)
+                        .setNegativeButtonText(android.R.string.cancel)
+                        .setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)
+                        .setRequestCode(REQUEST_TEXT_PICKER)
+                        .show();
+            }
+        });
     }
 
     // IListDialogListener
@@ -298,6 +315,13 @@ public class DemoActivity extends ActionBarActivity implements
         Toast.makeText(this, text + "Success! " + dateFormat.format(date), Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onPositiveEditTextButtonClicked(int requestCode, CharSequence text, Bundle data) {
+        if (requestCode == REQUEST_TEXT_PICKER) {
+            Toast.makeText(this, "Entered password: " + text, Toast.LENGTH_SHORT).show();
+        }
+    }
+
     // menu
 
     @Override
@@ -356,5 +380,4 @@ public class DemoActivity extends ActionBarActivity implements
         }
         return darkTheme;
     }
-
 }
