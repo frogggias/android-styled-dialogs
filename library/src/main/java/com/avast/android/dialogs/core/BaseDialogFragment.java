@@ -27,6 +27,7 @@ import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -59,6 +60,7 @@ import com.avast.android.dialogs.util.TypefaceHelper;
 public abstract class BaseDialogFragment extends DialogFragment implements DialogInterface.OnShowListener {
 
     protected int mRequestCode;
+    private Bundle mData;
 
     @NonNull
     @Override
@@ -92,6 +94,7 @@ public abstract class BaseDialogFragment extends DialogFragment implements Dialo
             Bundle args = getArguments();
             if (args != null) {
                 mRequestCode = args.getInt(BaseDialogBuilder.ARG_REQUEST_CODE, 0);
+                mData = args.getBundle(BaseDialogBuilder.ARG_DATA);
             }
         }
     }
@@ -144,8 +147,12 @@ public abstract class BaseDialogFragment extends DialogFragment implements Dialo
     public void onCancel(DialogInterface dialog) {
         super.onCancel(dialog);
         for (ISimpleDialogCancelListener listener : getCancelListeners()) {
-            listener.onCancelled(mRequestCode);
+            listener.onCancelled(mRequestCode, getData());
         }
+    }
+
+    protected @Nullable Bundle getData() {
+        return mData;
     }
 
     /**

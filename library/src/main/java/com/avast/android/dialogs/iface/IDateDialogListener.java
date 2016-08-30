@@ -16,6 +16,9 @@
 
 package com.avast.android.dialogs.iface;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+
 import java.util.Date;
 
 /**
@@ -25,7 +28,7 @@ import java.util.Date;
  */
 public interface IDateDialogListener {
 
-    public void onPositiveButtonClicked(int requestCode, Date date);
+    public void onPositiveButtonClicked(int requestCode, Date date, @Nullable Bundle data);
 
-    public void onNegativeButtonClicked(int requestCode, Date date);
+    public void onNegativeButtonClicked(int requestCode, Date date, @Nullable Bundle data);
 }
