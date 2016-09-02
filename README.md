@@ -19,11 +19,15 @@ Features:
 ## How to include it in your project:
 
 ```groovy
+repositories {
+        maven { url "https://jitpack.io" }
+}
+
 dependencies {
-	compile 'com.avast:android-styled-dialogs:2.3.3'
+	compile 'com.github.frogggias:android-styled-dialogs:2.3.5'
 }
 ```    
-Hosted in [jcenter](https://bintray.com/avast/android/styled-dialogs/): [ ![Download](https://api.bintray.com/packages/avast/android/styled-dialogs/images/download.svg) ](https://bintray.com/avast/android/styled-dialogs/_latestVersion)
+Hosted in [![](https://jitpack.io/v/frogggias/android-styled-dialogs.svg)](https://jitpack.io/#frogggias/android-styled-dialogs)
 
 [Looking for Holo dialogs?](https://github.com/inmite/android-styled-dialogs/tree/holo)
 
