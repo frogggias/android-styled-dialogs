@@ -98,6 +98,8 @@ public abstract class BaseDialogBuilder<T extends BaseDialogBuilder<T>> {
 
         args.putBoolean(ARG_USE_LIGHT_THEME, mUseLightTheme);
 
+        args.putBundle(ARG_DATA, mData);
+
         if (mTargetFragment != null) {
             fragment.setTargetFragment(mTargetFragment, mRequestCode);
         } else {
