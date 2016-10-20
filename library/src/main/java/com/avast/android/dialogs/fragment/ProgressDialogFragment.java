@@ -27,6 +27,8 @@ public class ProgressDialogFragment extends BaseDialogFragment {
     protected final static String ARG_MESSAGE = "message";
     protected final static String ARG_TITLE = "title";
 
+    private View view;
+
 
     public static ProgressDialogBuilder createBuilder(Context context, FragmentManager fragmentManager) {
         return new ProgressDialogBuilder(context, fragmentManager);
@@ -35,7 +37,7 @@ public class ProgressDialogFragment extends BaseDialogFragment {
     @Override
     protected Builder build(Builder builder) {
         final LayoutInflater inflater = builder.getLayoutInflater();
-        final View view = inflater.inflate(R.layout.sdl_progress, null, false);
+        view = inflater.inflate(R.layout.sdl_progress, null, false);
         final TextView tvMessage = (TextView) view.findViewById(R.id.sdl_message);
 
         tvMessage.setText(getArguments().getCharSequence(ARG_MESSAGE));
@@ -45,6 +47,14 @@ public class ProgressDialogFragment extends BaseDialogFragment {
         builder.setTitle(getArguments().getCharSequence(ARG_TITLE));
 
         return builder;
+    }
+
+    public void setMessage(CharSequence message) {
+        if (view == null) {
+            return;
+        }
+        final TextView tvMessage = (TextView) view.findViewById(R.id.sdl_message);
+        tvMessage.setText(message);
     }
 
     @Override
