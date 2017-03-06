@@ -288,6 +288,10 @@ public class TextDialogFragment extends BaseDialogFragment {
             return this;
         }
 
+        public TextDialogBuilder setPattern(Pattern pattern, int errorMessage) {
+            return setPattern(pattern, mContext.getString(errorMessage));
+        }
+
 
         @Override
         protected Bundle prepareArguments() {
