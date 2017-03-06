@@ -171,8 +171,7 @@ public class TextDialogFragment extends BaseDialogFragment {
     }
 
     protected CharSequence getErrorMessage() {
-        final CharSequence message = getArguments().getCharSequence(ARG_ERR_MESSAGE);
-        return message != null ? message : "";
+        return getArguments().getCharSequence(ARG_ERR_MESSAGE);
     }
 
     private boolean matchesPattern(Editable text) {
