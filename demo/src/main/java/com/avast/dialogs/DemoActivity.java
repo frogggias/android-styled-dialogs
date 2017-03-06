@@ -16,17 +16,15 @@
 
 package com.avast.dialogs;
 
-import java.text.DateFormat;
-import java.util.Date;
-
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.InputType;
-import android.view.Menu;
-import android.content.res.TypedArray;
+import android.util.Patterns;
 import android.util.TypedValue;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,17 +32,20 @@ import android.widget.AbsListView;
 import android.widget.Toast;
 
 import com.avast.android.dialogs.fragment.DatePickerDialogFragment;
-import com.avast.android.dialogs.fragment.TextDialogFragment;
 import com.avast.android.dialogs.fragment.ListDialogFragment;
 import com.avast.android.dialogs.fragment.ProgressDialogFragment;
 import com.avast.android.dialogs.fragment.SimpleDialogFragment;
+import com.avast.android.dialogs.fragment.TextDialogFragment;
 import com.avast.android.dialogs.fragment.TimePickerDialogFragment;
 import com.avast.android.dialogs.iface.IDateDialogListener;
-import com.avast.android.dialogs.iface.ITextPositiveButtonDialogListener;
 import com.avast.android.dialogs.iface.IListDialogListener;
 import com.avast.android.dialogs.iface.IMultiChoiceListDialogListener;
 import com.avast.android.dialogs.iface.ISimpleDialogCancelListener;
 import com.avast.android.dialogs.iface.ISimpleDialogListener;
+import com.avast.android.dialogs.iface.ITextPositiveButtonDialogListener;
+
+import java.text.DateFormat;
+import java.util.Date;
 
 public class DemoActivity extends ActionBarActivity implements
         ISimpleDialogListener,
@@ -213,6 +214,18 @@ public class DemoActivity extends ActionBarActivity implements
                         .show();
             }
         });
+        findViewById(R.id.text_pattern_picker).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TextDialogFragment
+                        .createBuilder(DemoActivity.this, getSupportFragmentManager())
+                        .setPositiveButtonText(android.R.string.ok)
+                        .setNegativeButtonText(android.R.string.cancel)
+                        .setPattern(Patterns.EMAIL_ADDRESS, "Wrong email")
+                        .setRequestCode(REQUEST_TEXT_PICKER)
+                        .show();
+            }
+        });
     }
 
     // IListDialogListener
@@ -318,7 +331,7 @@ public class DemoActivity extends ActionBarActivity implements
     @Override
     public void onPositiveEditTextButtonClicked(int requestCode, CharSequence text, Bundle data) {
         if (requestCode == REQUEST_TEXT_PICKER) {
-            Toast.makeText(this, "Entered password: " + text, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Entered text: " + text, Toast.LENGTH_SHORT).show();
         }
     }
 

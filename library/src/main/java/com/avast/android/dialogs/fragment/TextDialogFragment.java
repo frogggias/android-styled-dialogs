@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.StringRes;
 import android.support.v4.app.FragmentManager;
+import android.text.Editable;
 import android.text.Html;
 import android.text.InputType;
 import android.text.SpannedString;
@@ -22,6 +23,7 @@ import com.avast.android.dialogs.iface.INeutralButtonDialogListener;
 import com.avast.android.dialogs.iface.ITextPositiveButtonDialogListener;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class TextDialogFragment extends BaseDialogFragment {
 
@@ -36,6 +38,8 @@ public class TextDialogFragment extends BaseDialogFragment {
     protected final static String ARG_ARGUMENTS = "arguments";
     protected final static String ARG_LAYOUT_RES_ID = "layout_res_id";
     protected final static String ARG_INPUT_TYPE = "input_type";
+    protected static final String ARG_PATTERN = "regular";
+    protected static final String ARG_ERR_MESSAGE = "error_message";
 
     public static TextDialogBuilder createBuilder(Context context, FragmentManager fragmentManager) {
         return new TextDialogBuilder(context, fragmentManager, TextDialogFragment.class);
@@ -72,6 +76,10 @@ public class TextDialogFragment extends BaseDialogFragment {
             builder.setPositiveButton(positiveButtonText, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (!matchesPattern(text.getText())) {
+                        text.setError(getErrorMessage());
+                        return;
+                    }
                     for(ITextPositiveButtonDialogListener listener: getPositiveButtonDialogListeners()) {
                         listener.onPositiveEditTextButtonClicked(mRequestCode, text.getText(), getData());
                     }
@@ -158,6 +166,26 @@ public class TextDialogFragment extends BaseDialogFragment {
         return getDialogListeners(INegativeButtonDialogListener.class);
     }
 
+    protected String getPattern() {
+        return getArguments().getString(ARG_PATTERN);
+    }
+
+    protected CharSequence getErrorMessage() {
+        final CharSequence message = getArguments().getCharSequence(ARG_ERR_MESSAGE);
+        return message != null ? message : "";
+    }
+
+    private boolean matchesPattern(Editable text) {
+        String pattern = getPattern();
+        if (TextUtils.isEmpty(pattern)) {
+            return true;
+        }
+        if (TextUtils.isEmpty(text)) {
+            return false;
+        }
+        return text.toString().matches(pattern);
+    }
+
     public static class TextDialogBuilder extends BaseDialogBuilder<TextDialogBuilder> {
 
         private CharSequence mTitle;
@@ -166,6 +194,8 @@ public class TextDialogFragment extends BaseDialogFragment {
         private CharSequence mNegativeButtonText;
         private CharSequence mNeutralButtonText;
         private CharSequence mDefaultValue;
+        private CharSequence mErrorMessage;
+        private String mPattern;
         private Bundle mArguments;
         private int mLayoutResId;
         private int mInputType = InputType.TYPE_CLASS_TEXT;
@@ -253,6 +283,14 @@ public class TextDialogFragment extends BaseDialogFragment {
             return this;
         }
 
+        public TextDialogBuilder setPattern(Pattern pattern, CharSequence errorMessage) {
+            if (pattern != null) {
+                mPattern = pattern.pattern();
+                mErrorMessage = errorMessage;
+            }
+            return this;
+        }
+
 
         @Override
         protected Bundle prepareArguments() {
@@ -266,6 +304,8 @@ public class TextDialogFragment extends BaseDialogFragment {
             args.putBundle(ARG_ARGUMENTS, mArguments);
             args.putInt(ARG_LAYOUT_RES_ID, mLayoutResId);
             args.putInt(ARG_INPUT_TYPE, mInputType);
+            args.putString(ARG_PATTERN, mPattern);
+            args.putCharSequence(ARG_ERR_MESSAGE, mErrorMessage);
 
             return args;
         }
