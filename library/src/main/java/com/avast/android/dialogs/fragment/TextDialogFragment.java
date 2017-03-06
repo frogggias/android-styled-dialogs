@@ -38,7 +38,7 @@ public class TextDialogFragment extends BaseDialogFragment {
     protected final static String ARG_ARGUMENTS = "arguments";
     protected final static String ARG_LAYOUT_RES_ID = "layout_res_id";
     protected final static String ARG_INPUT_TYPE = "input_type";
-    protected static final String ARG_PATTERN = "regular";
+    protected static final String ARG_PATTERN = "pattern";
     protected static final String ARG_ERR_MESSAGE = "error_message";
 
     public static TextDialogBuilder createBuilder(Context context, FragmentManager fragmentManager) {
@@ -166,8 +166,8 @@ public class TextDialogFragment extends BaseDialogFragment {
         return getDialogListeners(INegativeButtonDialogListener.class);
     }
 
-    protected String getPattern() {
-        return getArguments().getString(ARG_PATTERN);
+    protected Pattern getPattern() {
+        return (Pattern) getArguments().getSerializable(ARG_PATTERN);
     }
 
     protected CharSequence getErrorMessage() {
@@ -175,14 +175,14 @@ public class TextDialogFragment extends BaseDialogFragment {
     }
 
     private boolean matchesPattern(Editable text) {
-        String pattern = getPattern();
-        if (TextUtils.isEmpty(pattern)) {
+        Pattern pattern = getPattern();
+        if (pattern == null) {
             return true;
         }
         if (TextUtils.isEmpty(text)) {
             return false;
         }
-        return text.toString().matches(pattern);
+        return pattern.matcher(text.toString()).matches();
     }
 
     public static class TextDialogBuilder extends BaseDialogBuilder<TextDialogBuilder> {
@@ -194,7 +194,7 @@ public class TextDialogFragment extends BaseDialogFragment {
         private CharSequence mNeutralButtonText;
         private CharSequence mDefaultValue;
         private CharSequence mErrorMessage;
-        private String mPattern;
+        private Pattern mPattern;
         private Bundle mArguments;
         private int mLayoutResId;
         private int mInputType = InputType.TYPE_CLASS_TEXT;
@@ -283,10 +283,8 @@ public class TextDialogFragment extends BaseDialogFragment {
         }
 
         public TextDialogBuilder setPattern(Pattern pattern, CharSequence errorMessage) {
-            if (pattern != null) {
-                mPattern = pattern.pattern();
-                mErrorMessage = errorMessage;
-            }
+            mPattern = pattern;
+            mErrorMessage = errorMessage;
             return this;
         }
 
@@ -303,7 +301,7 @@ public class TextDialogFragment extends BaseDialogFragment {
             args.putBundle(ARG_ARGUMENTS, mArguments);
             args.putInt(ARG_LAYOUT_RES_ID, mLayoutResId);
             args.putInt(ARG_INPUT_TYPE, mInputType);
-            args.putString(ARG_PATTERN, mPattern);
+            args.putSerializable(ARG_PATTERN, mPattern);
             args.putCharSequence(ARG_ERR_MESSAGE, mErrorMessage);
 
             return args;
