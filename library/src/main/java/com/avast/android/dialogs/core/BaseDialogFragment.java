@@ -88,14 +88,15 @@ public abstract class BaseDialogFragment extends DialogFragment implements Dialo
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         final Fragment targetFragment = getTargetFragment();
+        Bundle args = getArguments();
+        if (args != null) {
+            mData = args.getBundle(BaseDialogBuilder.ARG_DATA);
+        }
+
         if (targetFragment != null) {
             mRequestCode = getTargetRequestCode();
-        } else {
-            Bundle args = getArguments();
-            if (args != null) {
-                mRequestCode = args.getInt(BaseDialogBuilder.ARG_REQUEST_CODE, 0);
-                mData = args.getBundle(BaseDialogBuilder.ARG_DATA);
-            }
+        } else if (args != null) {
+            mRequestCode = args.getInt(BaseDialogBuilder.ARG_REQUEST_CODE, 0);
         }
     }
 
