@@ -90,7 +90,7 @@ public class TextDialogFragment extends BaseDialogFragment {
 
         final CharSequence neutralButtonText = getNeutralButtonText();
         if (!TextUtils.isEmpty(neutralButtonText)) {
-            builder.setPositiveButton(neutralButtonText, new View.OnClickListener() {
+            builder.setNeutralButton(neutralButtonText, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     for(INeutralButtonDialogListener listener: getNeutralButtonDialogListeners()) {
