@@ -33,6 +33,7 @@ import android.widget.Toast;
 
 import com.avast.android.dialogs.fragment.DatePickerDialogFragment;
 import com.avast.android.dialogs.fragment.ListDialogFragment;
+import com.avast.android.dialogs.fragment.NumberPickerDialogFragment;
 import com.avast.android.dialogs.fragment.ProgressDialogFragment;
 import com.avast.android.dialogs.fragment.SimpleDialogFragment;
 import com.avast.android.dialogs.fragment.TextDialogFragment;
@@ -223,6 +224,19 @@ public class DemoActivity extends ActionBarActivity implements
                         .setNegativeButtonText(android.R.string.cancel)
                         .setPattern(Patterns.EMAIL_ADDRESS, "Wrong email")
                         .setRequestCode(REQUEST_TEXT_PICKER)
+                        .show();
+            }
+        });
+
+        findViewById(R.id.number_picker).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NumberPickerDialogFragment.createBuilder(DemoActivity.this, getSupportFragmentManager())
+                        .setTitle("Pick a number between -2 and 10")
+                        .setPositiveButtonText(android.R.string.ok)
+                        .setMinValue(-2)
+                        .setMaxValue(10)
+                        .setDefaultValue(5)
                         .show();
             }
         });

@@ -66,6 +66,11 @@
             android:text="Text dialog (password)" />
 
         <Button
+            android:id="@+id/number_picker"
+            style="@style/Button"
+            android:text="Number picker" />
+
+        <Button
             android:id="@+id/text_pattern_picker"
             style="@style/Button"
             android:text="Text dialog (pattern)" />
