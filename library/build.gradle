@@ -8,10 +8,10 @@ ext {
 
 android {
     compileSdkVersion 23
-    buildToolsVersion '25.0.0'
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
-        minSdkVersion 8
+        minSdkVersion 14
         targetSdkVersion 23
         versionName project.VERSION_NAME
         versionCode project.VERSION_CODE
@@ -23,7 +23,7 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:23.1.1'
+    api 'com.android.support:appcompat-v7:23.1.1'
 }
 
 apply from: 'android-release-aar.gradle'

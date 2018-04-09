@@ -66,6 +66,11 @@
             android:text="Text dialog (password)" />
 
         <Button
+            android:id="@+id/ip_address_picker"
+            style="@style/Button"
+            android:text="IPv4 address picker" />
+
+        <Button
             android:id="@+id/number_picker"
             style="@style/Button"
             android:text="Number picker" />

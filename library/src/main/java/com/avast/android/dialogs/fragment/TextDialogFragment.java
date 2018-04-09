@@ -11,6 +11,7 @@ import android.text.Html;
 import android.text.InputType;
 import android.text.SpannedString;
 import android.text.TextUtils;
+import android.text.method.DigitsKeyListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -38,6 +39,7 @@ public class TextDialogFragment extends BaseDialogFragment {
     protected final static String ARG_ARGUMENTS = "arguments";
     protected final static String ARG_LAYOUT_RES_ID = "layout_res_id";
     protected final static String ARG_INPUT_TYPE = "input_type";
+    protected final static String ARG_DIGITS = "digits";
     protected static final String ARG_PATTERN = "pattern";
     protected static final String ARG_ERR_MESSAGE = "error_message";
 
@@ -68,6 +70,11 @@ public class TextDialogFragment extends BaseDialogFragment {
         }
 
         text.setInputType(getInputType());
+
+        CharSequence digits = getDigits();
+        if (digits != null) {
+            text.setKeyListener(DigitsKeyListener.getInstance(digits.toString()));
+        }
 
         builder.setView(view);
 
@@ -154,6 +161,10 @@ public class TextDialogFragment extends BaseDialogFragment {
         return getArguments().getInt(ARG_INPUT_TYPE);
     }
 
+    protected CharSequence getDigits() {
+        return getArguments().getCharSequence(ARG_DIGITS);
+    }
+
     protected List<ITextPositiveButtonDialogListener> getPositiveButtonDialogListeners() {
         return getDialogListeners(ITextPositiveButtonDialogListener.class);
     }
@@ -198,6 +209,7 @@ public class TextDialogFragment extends BaseDialogFragment {
         private Bundle mArguments;
         private int mLayoutResId;
         private int mInputType = InputType.TYPE_CLASS_TEXT;
+        private CharSequence mDigits;
 
         public TextDialogBuilder(Context context, FragmentManager fragmentManager, Class<? extends TextDialogFragment> clazz) {
             super(context, fragmentManager, clazz);
@@ -282,6 +294,11 @@ public class TextDialogFragment extends BaseDialogFragment {
             return this;
         }
 
+        public TextDialogBuilder setDigits(CharSequence digits) {
+            mDigits = digits;
+            return this;
+        }
+
         public TextDialogBuilder setPattern(Pattern pattern, CharSequence errorMessage) {
             mPattern = pattern;
             mErrorMessage = errorMessage;
@@ -305,6 +322,7 @@ public class TextDialogFragment extends BaseDialogFragment {
             args.putBundle(ARG_ARGUMENTS, mArguments);
             args.putInt(ARG_LAYOUT_RES_ID, mLayoutResId);
             args.putInt(ARG_INPUT_TYPE, mInputType);
+            args.putCharSequence(ARG_DIGITS, mDigits);
             args.putSerializable(ARG_PATTERN, mPattern);
             args.putCharSequence(ARG_ERR_MESSAGE, mErrorMessage);
 

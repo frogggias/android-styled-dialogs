@@ -63,6 +63,7 @@ public class DemoActivity extends ActionBarActivity implements
     private static final int REQUEST_DATE_PICKER = 12;
     private static final int REQUEST_TIME_PICKER = 13;
     private static final int REQUEST_TEXT_PICKER = 15;
+    private static final int REQUEST_IP_ADDRESS_PICKER = 16;
     private static final int REQUEST_SIMPLE_DIALOG = 42;
 
     DemoActivity c = this;
@@ -215,6 +216,19 @@ public class DemoActivity extends ActionBarActivity implements
                         .show();
             }
         });
+        findViewById(R.id.ip_address_picker).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TextDialogFragment
+                        .createBuilder(DemoActivity.this, getSupportFragmentManager())
+                        .setPositiveButtonText(android.R.string.ok)
+                        .setNegativeButtonText(android.R.string.cancel)
+                        .setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL)
+                        .setDigits("0123456789.")
+                        .setRequestCode(REQUEST_IP_ADDRESS_PICKER)
+                        .show();
+            }
+        });
         findViewById(R.id.text_pattern_picker).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -346,6 +360,8 @@ public class DemoActivity extends ActionBarActivity implements
     public void onPositiveEditTextButtonClicked(int requestCode, CharSequence text, Bundle data) {
         if (requestCode == REQUEST_TEXT_PICKER) {
             Toast.makeText(this, "Entered text: " + text, Toast.LENGTH_SHORT).show();
+        } else if (requestCode == REQUEST_IP_ADDRESS_PICKER) {
+            Toast.makeText(this, "IP address: " + text, Toast.LENGTH_SHORT).show();
         }
     }
 
