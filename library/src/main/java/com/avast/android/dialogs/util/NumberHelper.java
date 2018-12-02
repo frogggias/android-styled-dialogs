@@ -1,8 +1,6 @@
 package com.avast.android.dialogs.util;
 
-import android.support.annotation.Nullable;
-
-import java.text.NumberFormat;
+import androidx.annotation.Nullable;
 
 /**
  * Created by frogggias on 19.03.18.

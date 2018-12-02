@@ -1,7 +1,7 @@
 package com.avast.android.dialogs.iface;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 /**
  * Implement this interface in Activity or Fragment to react to negative dialog buttons.

@@ -1,7 +1,7 @@
 package com.avast.android.dialogs.iface;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 /**
  * Interface for ListDialogFragment in modes: CHOICE_MODE_MULTIPLE

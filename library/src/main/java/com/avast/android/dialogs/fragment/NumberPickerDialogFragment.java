@@ -3,17 +3,16 @@ package com.avast.android.dialogs.fragment;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.StringRes;
-import android.support.v4.app.FragmentManager;
-import android.text.Editable;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.StringRes;
+import androidx.fragment.app.FragmentManager;
+
 import android.text.Html;
 import android.text.InputType;
 import android.text.SpannedString;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.avast.android.dialogs.R;
@@ -22,7 +21,6 @@ import com.avast.android.dialogs.core.BaseDialogFragment;
 import com.avast.android.dialogs.iface.INegativeButtonDialogListener;
 import com.avast.android.dialogs.iface.INeutralButtonDialogListener;
 import com.avast.android.dialogs.iface.INumberPositiveButtonDialogListener;
-import com.avast.android.dialogs.iface.ITextPositiveButtonDialogListener;
 import com.avast.android.dialogs.util.NumberHelper;
 
 import java.text.NumberFormat;
