@@ -20,7 +20,7 @@ import android.content.Intent;
 import android.content.res.TypedArray;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.util.Patterns;
 import android.util.TypedValue;
@@ -48,7 +48,7 @@ import com.avast.android.dialogs.iface.ITextPositiveButtonDialogListener;
 import java.text.DateFormat;
 import java.util.Date;
 
-public class DemoActivity extends ActionBarActivity implements
+public class DemoActivity extends AppCompatActivity implements
         ISimpleDialogListener,
         IDateDialogListener,
         ISimpleDialogCancelListener,
