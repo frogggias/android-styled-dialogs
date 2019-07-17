@@ -3,9 +3,6 @@ package com.avast.android.dialogs.fragment;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
-import androidx.annotation.LayoutRes;
-import androidx.annotation.StringRes;
-import androidx.fragment.app.FragmentManager;
 import android.text.Editable;
 import android.text.Html;
 import android.text.InputType;
@@ -15,6 +12,12 @@ import android.text.method.DigitsKeyListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.fragment.app.FragmentManager;
 
 import com.avast.android.dialogs.R;
 import com.avast.android.dialogs.core.BaseDialogBuilder;
@@ -62,7 +65,10 @@ public class TextDialogFragment extends BaseDialogFragment {
         final LayoutInflater inflater = builder.getLayoutInflater();
         @SuppressLint("InflateParams")
         final View view = inflater.inflate(getLayoutResId(), null, false);
-        final EditText text = (EditText) view.findViewById(android.R.id.text1);
+        final EditText text = view.findViewById(android.R.id.text1);
+
+        setContentViewPadding(title, message, view);
+
         CharSequence defaultValue = getDefaultValue();
         if (!TextUtils.isEmpty(defaultValue)) {
             text.setText(defaultValue);
@@ -122,6 +128,21 @@ public class TextDialogFragment extends BaseDialogFragment {
         }
 
         return builder;
+    }
+
+    private void setContentViewPadding(@Nullable CharSequence title, @Nullable CharSequence message,
+                                       @NonNull View input) {
+        Context context = getContext();
+        if (context == null) {
+            return;
+        }
+        int grid6 = context.getResources().getDimensionPixelSize(R.dimen.grid_6);
+        int grid4 = context.getResources().getDimensionPixelSize(R.dimen.grid_4);
+        if (!TextUtils.isEmpty(title) || !TextUtils.isEmpty(message)) {
+            input.setPadding(grid6, 0, grid6, grid4);
+        } else {
+            input.setPadding(grid6, grid6, grid6, grid4);
+        }
     }
 
     protected CharSequence getTitle() {
